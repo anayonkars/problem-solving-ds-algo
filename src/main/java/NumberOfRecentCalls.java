@@ -15,17 +15,28 @@ range 1,3001
 ping(3002) -> total requests : {1,100,3001,3002}. There are total 3 requests in
 range 2,3002
 
-
+Solution Approach:
+Idea is to maintain a sliding window. When ping is invoked, t will be added
+to it. However, all time stamps less than t - 3000 will be removed. Now, the
+size of sliding window is the answer.
 
 */
 
-public class NumberOfRecentCalls {
-    public NumberOfRecentCalls() {
+import java.util.LinkedList;
 
+public class NumberOfRecentCalls {
+    private LinkedList<Integer> slidingWindow;
+
+    public NumberOfRecentCalls() {
+        this.slidingWindow = new LinkedList<>();
     }
 
     public int ping(int t) {
-
+        this.slidingWindow.add(t);
+        while(this.slidingWindow.getFirst() < t - 3000) {
+            this.slidingWindow.removeFirst();
+        }
+        return slidingWindow.size();
     }
 
     public static void main(String[] args) {
