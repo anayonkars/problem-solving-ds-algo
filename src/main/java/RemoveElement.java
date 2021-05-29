@@ -27,5 +27,24 @@ Finally, when array is traversed fully, ptr1 will reach at end of new array -
  i.e. with all occurrences of required element removed.
  */
 public class RemoveElement {
+    public int removeElement(int[] nums, int val) {
+        int slow = 0;
+        int fast = 0;
+        for(int i = 0 ; i < nums.length ; i++) {
+            if(nums[i] == val) {
+                ++fast;
+            } else {
+                nums[slow] = nums[fast];
+                ++slow;
+                ++fast;
+            }
+        }
+        return slow;
+    }
 
+    public static void main(String[] args) {
+        RemoveElement removeElement = new RemoveElement();
+        int[] input = new int[]{0,1,2,2,3,0,4,2};
+        System.out.println(removeElement.removeElement(input, 2));
+    }
 }
